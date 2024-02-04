@@ -53,33 +53,43 @@ public static void Main(string[] args)
     }
 
     public static void Create()
-    {
-        deck = new Tuple<string, string>[52];
-        string[] suits = { "Clubs", "Diamonds", "Hearts", "Spades" };
-        string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
-
-        int index = 0;
-        foreach (var suit in suits)
         {
-            foreach (var rank in ranks)
+            deck = new Tuple<string, string>[52];
+            string[] suits = { "Clubs", "Diamonds", "Hearts", "Spades" };
+            string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+
+            int index = 0;
+            foreach (var suit in suits)
             {
-                deck[index] = Tuple.Create(suit, rank);
-                index++;
+                foreach (var rank in ranks)
+                {
+                    deck[index] = Tuple.Create(suit, rank);
+                    index++;
+                }
+            }
+            Console.WriteLine("New deck created!");
+        }
+
+        public static void Shuffle()
+        {
+            int n = deck.Length;
+            if (n != 0)
+            {
+                for (int i = n - 1; i > 0; i--)
+                {
+                    int j = random.Next(0, i + 1);
+                    Tuple<string, string> temp = deck[i];
+                    deck[i] = deck[j];
+                    deck[j] = temp;
+                }
+                Console.WriteLine("Deck shuffled.");
+            }
+            else
+            {
+                Console.WriteLine("Deck is empty!");
             }
         }
-    }
 
-    public static void Shuffle()
-    {
-        int n = deck.Length;
-        for (int i = n - 1; i > 0; i--)
-        {
-            int j = random.Next(0, i + 1);
-            Tuple<string, string> temp = deck[i];
-            deck[i] = deck[j];
-            deck[j] = temp;
-        }
-    }
 
     public static void Deal(int numberOfCards)
     {
